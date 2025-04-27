@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS Link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+
+    <!-- External CSS link -->
+    <link rel="stylesheet" href="style.css">
+    <title>Quiz App</title>
+</head>
+<!-- Start Of Body -->
+
+<body onload="nextQuestion()">
+    <div class="d-flex justify-content-center">
+        <div class="d-flex main-top  text-white p-3 m-5 rounded-4 ">
+            <h3 class="me-4 ms  ">Quiz Excellence App</h3>
+            <button id="timer" class="ps-2 pe-2 border-none rounded-3 fs-4">
+                2:00</button>
+        </div>
+    </div>
+
+    <div class="container d-flex justify-content-center">
+        <div class="content-div">
+            <h2 id="ques"></h2>
+            <br>
+            <div class="option " onclick="clicked()">
+                <input value="1" name="options" type="radio" id="opt1-radio">
+                <label for="opt1" id="opt1"></label>
+            </div>
+            <div class="option " onclick="clicked()">
+                <input value="2" name="options" type="radio" id="opt2-radio">
+                <label for="opt2" id="opt2"></label>
+            </div>
+            <div class="option " onclick="clicked()">
+                <input value="3" name="options" type="radio" id="opt3-radio">
+                <label for="opt3" id="opt3"></label>
+            </div>
+            <button id="btn" class="ps-3 pe-3 pt-2 pb-2 text-white rounded-3" disabled
+                onclick="nextQuestion()">Next</button>
+            <hr>
+            <h4 id="question" class="quantity-num">1 of 10 Questions</h4>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Link -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js"
+        integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+"
+        crossorigin="anonymous"></script>
+
+    <!-- JS Link -->
+    <script src="app.js"></script>
+</body>
+
+</html>

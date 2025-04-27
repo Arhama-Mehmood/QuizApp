@@ -1,0 +1,77 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+body{
+    background-color: #c4e4df;
+}
+.timer-text {
+    color: rgb(76, 136, 136);
+}
+
+.main-top {
+    background-color: #345752;
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+button {
+    background-color: rgb(53, 122, 122);
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: #496460;
+}
+
+.content-div {
+    background-color: #f0f4f5; 
+    box-shadow: 10px 10px 20px gray;
+    margin: 10px;
+    padding: 20px 20px 0px 20px;
+    border-radius: 10px;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.option {
+    box-shadow: 5px 5px 10px rgb(65, 112, 113);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: white;
+    background-color: #16ac96;
+
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.option:hover {
+    background-color: #16ac96;
+    color: rgb(241, 237, 237);
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.option input[type="radio"] {
+    margin-right: 15px;
+    transform: scale(1.5);
+}
+
+.option label {
+    font-size: 20px;
+}
+
+#btn {
+    width: 70px;
+}
