@@ -37,7 +37,7 @@ button:hover {
     padding: 20px 20px 0px 20px;
     border-radius: 10px;
     width: 500px;
-    height: 450px;
+    height: 430px;
     display: flex;
     flex-direction: column;
 }
