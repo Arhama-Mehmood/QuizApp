@@ -37,7 +37,7 @@ button:hover {
     padding: 20px 20px 0px 20px;
     border-radius: 10px;
     width: 500px;
-    height: 400px;
+    height: 450px;
     display: flex;
     flex-direction: column;
 }
@@ -102,7 +102,7 @@ button:hover {
     }
 }
 
-/* New: For ultra small screens under 400px */
+/* Mobile-Responsiveness */
 @media (max-width: 400px) {
     body {
         padding: 10px;
@@ -125,6 +125,8 @@ button:hover {
     #timer {
         font-size: 16px;
         padding: 6px 12px;
+        min-width: 70px; 
+        text-align: center;
     }
 
     .content-div {
