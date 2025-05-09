@@ -1,4 +1,18 @@
-var questions = [
+const firebaseConfig = {
+  apiKey: "AIzaSyBu_FY9h93a-8yPWgdmMoMVp3r6cTf0fAo",
+  authDomain: "quizapp-7dc8f.firebaseapp.com",
+  databaseURL: "https://quizapp-7dc8f-default-rtdb.firebaseio.com",
+  projectId: "quizapp-7dc8f",
+  storageBucket: "quizapp-7dc8f.appspot.com",
+  messagingSenderId: "512595047873",
+  appId: "1:512595047873:web:ec46e22c6a0cef94cc6b40"
+};
+
+// Initialize Firebase
+var app = firebase.initializeApp(firebaseConfig);
+var db = firebase.database();
+
+var localQuestions = [
   {
     question: "HTML Stands for ?",
     option1: "Hyper Text Markup Language",
@@ -71,18 +85,32 @@ var questions = [
   },
 ];
 
+// Optional first-time upload
+
+let questionsData = {};
+localQuestions.forEach((q, i) => {
+  questionsData[`q${i + 1}`] = q;
+});
+db.ref("quizQuestions").set(questionsData);
+
+
+var questions = [];
+db.ref("quizQuestions").on("child_added", function (data) {
+  questions.push(data.val());
+});
+
 var quesElement = document.getElementById("ques");
 var option1 = document.getElementById("opt1");
 var option2 = document.getElementById("opt2");
 var option3 = document.getElementById("opt3");
 var questionNum = document.getElementById("question");
+var timer = document.getElementById("timer");
+
 var index = 0;
 var score = 0;
-var timer = document.getElementById("timer");
 var min = 1;
 var sec = 59;
 var question = 0;
-
 
 var interval = setInterval(function () {
   timer.innerHTML = `${min} : ${sec}`;
@@ -100,36 +128,29 @@ var interval = setInterval(function () {
 
 function nextQuestion() {
   var nextBtn = document.getElementById("btn");
-
   var allOptions = document.getElementsByTagName("input");
 
   for (var i = 0; i < allOptions.length; i++) {
     if (allOptions[i].checked) {
       allOptions[i].checked = false;
       var selectedValue = allOptions[i].value;
-
       var selectedOption = questions[index - 1][`option${selectedValue}`];
-
       var correctAnswer = questions[index - 1]["corrAnswer"];
-
       if (selectedOption === correctAnswer) {
         score++;
       }
     }
-
   }
+
   nextBtn.disabled = true;
 
   if (index > questions.length - 1) {
-    console.log(score);
-clearInterval(interval);
+    clearInterval(interval);
     timer.innerHTML = "00 : 00";
 
-    // Hide timer and content
     document.querySelector('.main-top').style.display = 'none';
     document.querySelector('.content-div').style.display = 'none';
 
-    // Create result box
     var resultDiv = document.createElement('div');
     resultDiv.className = 'result-div text-center text-white p-5 rounded-4';
     resultDiv.style.backgroundColor = '#345752';
@@ -146,16 +167,20 @@ clearInterval(interval);
     var percentageText = document.createElement('h4');
     percentageText.innerText = `Percentage: ${((score / questions.length) * 100).toFixed(2)}%`;
 
-    // Add elements into resultDiv
     resultDiv.appendChild(heading);
     resultDiv.appendChild(scoreText);
     resultDiv.appendChild(percentageText);
-
-    // Add resultDiv to body
     document.querySelector('.container').appendChild(resultDiv);
 
+    db.ref("quizResult").set({
+      result: {
+        score: score,
+        percentage: ((score / questions.length) * 100).toFixed(2) + "%",
+        time: new Date().toLocaleString()
+      }
+    });
+
   } else {
-    // Normal next question logic
     question++;
     questionNum.innerHTML = `Question ${question} of ${questions.length}`;
     quesElement.innerText = questions[index].question;
@@ -165,26 +190,20 @@ clearInterval(interval);
     index++;
   }
 
-
-  // if (index > questions.length - 1) {
-  //   console.log(score);
-  // } else {
-  //   question++;
-  //   questionNum.innerHTML = `Question ${question} of ${questions.length}`;
-  //   quesElement.innerText = questions[index].question;
-  //   option1.innerText = questions[index].option1;
-  //   option2.innerText = questions[index].option2;
-  //   option3.innerText = questions[index].option3;
-  //   index++;
-  // }
-
   min = 1;
   sec = 59;
 }
 
 function clicked() {
-  var nextBtn = document.getElementById("btn");
-  nextBtn.disabled = false;
+  document.getElementById("btn").disabled = false;
 }
 
+function selectOption(id) {
+  let all = ['opt1', 'opt2', 'opt3'];
+  all.forEach(opt => {
+    document.getElementById(opt).checked = false;
+  });
+  document.getElementById(id).checked = true;
+  clicked();
+}
 
