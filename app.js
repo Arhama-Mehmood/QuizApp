@@ -86,11 +86,11 @@ var localQuestions = [
 ];
 
 // Optional first-time upload
+const questionsData = {};
+for (let i = 0; i < localQuestions.length; i++) {
+  questionsData[`q${i + 1}`] = localQuestions[i];
+}
 
-let questionsData = {};
-localQuestions.forEach((q, i) => {
-  questionsData[`q${i + 1}`] = q;
-});
 db.ref("quizQuestions").set(questionsData);
 
 
